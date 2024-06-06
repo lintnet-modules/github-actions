@@ -1,28 +1,20 @@
 function(param) [
   {
     name: 'fail',
-    param: {
-      combined_data: [
-        {
-          value: [{
-            name: 'build',
-          }],
-          file_path: '.github/workflows/build.yaml',
-        },
-        {
-          value: [{
-            name: 'build',
-          }],
-          file_path: '.github/workflows/test.yaml',
-        },
-        {
-          value: [{
-            name: 'release',
-          }],
-          file_path: '.github/workflows/release.yaml',
-        },
-      ],
-    },
+    data_files: [
+      {
+        path: 'testdata/build.yaml',
+        fake_path: '.github/workflows/build.yaml',
+      },
+      {
+        path: 'testdata/build-2.yaml',
+        fake_path: '.github/workflows/build-2.yaml',
+      },
+      {
+        path: 'testdata/release.yaml',
+        fake_path: '.github/workflows/release.yaml',
+      },
+    ],
     result: [
       {
         name: 'GitHub Actions workflow name must be unique',
@@ -30,36 +22,24 @@ function(param) [
           workflow_name: 'build',
           files: [
             '.github/workflows/build.yaml',
-            '.github/workflows/test.yaml',
+            '.github/workflows/build-2.yaml',
           ],
         },
       },
     ],
   },
   {
-    name: 'succees',
-    param: {
-      combined_data: [
-        {
-          value: [{
-            name: 'build',
-          }],
-          file_path: '.github/workflows/build.yaml',
-        },
-        {
-          value: [{
-            name: 'test',
-          }],
-          file_path: '.github/workflows/test.yaml',
-        },
-        {
-          value: [{
-            name: 'release',
-          }],
-          file_path: '.github/workflows/release.yaml',
-        },
-      ],
-    },
+    name: 'pass',
+    data_files: [
+      {
+        path: 'testdata/build.yaml',
+        fake_path: '.github/workflows/build.yaml',
+      },
+      {
+        path: 'testdata/test.yaml',
+        fake_path: '.github/workflows/test.yaml',
+      },
+    ],
     result: [],
   },
 ]
